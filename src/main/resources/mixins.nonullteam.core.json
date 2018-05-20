@@ -1,0 +1,15 @@
+{
+    "package": "io.github.nucleuspowered.nonullteam.mixin",
+    "refmap": "mixins.nonullteam.refmap.json",
+    "target": "@env(DEFAULT)",
+    "compatibilityLevel": "JAVA_8",
+    "plugin": "io.github.nucleuspowered.nonullteam.NoNullTeamPlugin",
+    "mixins": [
+        "MixinEntityPlayer"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    },
+    "priority": 1100,
+    "minVersion": "0.7.5"
+}

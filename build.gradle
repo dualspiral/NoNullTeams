@@ -1,0 +1,87 @@
+// Gradle plugins
+buildscript {
+    repositories {
+        maven {
+            name = 'gradle-plugins'
+            url = 'https://plugins.gradle.org/m2'
+        }
+        maven {
+            name = 'sponge'
+            url = 'https://repo.spongepowered.org/maven'
+        }
+        maven {
+            name = 'forge'
+            url = 'http://files.minecraftforge.net/maven'
+        }
+    }
+
+    dependencies {
+        classpath 'gradle.plugin.net.minecrell:vanillagradle:2.2-5'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath 'gradle.plugin.org.spongepowered:spongegradle:0.8.1'
+        classpath 'org.spongepowered:mixingradle:0.4-SNAPSHOT'
+    }
+}
+
+plugins {
+    id 'java'
+    id 'maven'
+}
+
+repositories {
+    maven {
+        name = 'sponge'
+        url = 'https://repo.spongepowered.org/maven'
+    }
+    maven {
+        name = 'forge'
+        url = 'http://files.minecraftforge.net/maven'
+    }
+}
+
+apply plugin: 'net.minecrell.vanillagradle.server'
+apply plugin: 'org.spongepowered.mixin'
+
+group = pluginGroup
+version = pluginVersion
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile 'org.spongepowered:spongeapi:7.1.0-SNAPSHOT'
+    compile("org.spongepowered:mixin:0.7.5-SNAPSHOT") {
+        exclude module: "launchwrapper"
+        exclude module: "guava"
+    }
+}
+
+sourceSets {
+    main {
+        ext.refMap = "mixins.nucleus.refmap.json"
+    }
+}
+
+jar {
+    manifest {
+        attributes(
+                "MixinConfigs": "mixins.nucleus.invsee.json,mixins.nucleus.worldgen.json",
+                "tweakClass": "org.spongepowered.asm.launch.MixinTweaker",
+                "TweakOrder": 0,
+                "FMLAT": "nucleus_mixins_at.cfg",
+                "ForceLoadAsMod": true
+        )
+    }
+}
+
+dependencies {
+    compile 'org.spongepowered:spongeapi:7.0.0'
+}
+
+minecraft {
+    version = "1.12.2"
+    mappings = "snapshot_20171007"
+
+    runDir = 'run'
+
+    // We don't use the obfuscated dev jar currently
+    makeObfSourceJar = false
+}
