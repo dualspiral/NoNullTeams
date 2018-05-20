@@ -63,11 +63,9 @@ sourceSets {
 jar {
     manifest {
         attributes(
-                "MixinConfigs": "mixins.nucleus.invsee.json,mixins.nucleus.worldgen.json",
+                "MixinConfigs": "mixins.nonullteam.core.json",
                 "tweakClass": "org.spongepowered.asm.launch.MixinTweaker",
-                "TweakOrder": 0,
-                "FMLAT": "nucleus_mixins_at.cfg",
-                "ForceLoadAsMod": true
+                "TweakOrder": 0
         )
     }
 }
