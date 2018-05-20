@@ -11,5 +11,5 @@
         "defaultRequire": 1
     },
     "priority": 1100,
-    "minVersion": "0.7.5"
+    "minVersion": "0.7.4"
 }
